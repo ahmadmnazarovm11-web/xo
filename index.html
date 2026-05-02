@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>XO Battle Game</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        /* Базовые стили для структуры */
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            padding: 16px;
+            background-color: #000;
+            color: #fff;
+            font-family: sans-serif; /* Мы добавим шрифт Inter позже */
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Общие стили для всех карточек и кнопок */
+        .card, .btn-main, .btn-shop, .btn-profile, .btn-leaderboard {
+            background-color: #111;
+            border-radius: 20px;
+            padding: 20px;
+            width: 100%;
+        }
+
+        /* Заголовок (Приветствие) */
+        .greeting-card p { margin: 0; color: #888; font-size: 14px; text-transform: uppercase; }
+        .greeting-card h1 { margin: 8px 0 0; font-size: 28px; font-weight: bold; }
+        .status-row { display: flex; gap: 16px; margin-top: 12px; font-size: 14px; color: #aaa; }
+        .status-item span { color: #fff; font-weight: bold; }
+
+        /* Большие кнопки меню */
+        .btn-main, .btn-leaderboard {
+            cursor: pointer;
+            text-align: left;
+            position: relative;
+        }
+
+        .btn-main .icon-bot, .btn-main .icon-friend { font-size: 24px; color: #888; }
+        .btn-main h2 { margin: 10px 0 0; font-size: 18px; }
+        .btn-main p { margin: 4px 0 0; color: #aaa; font-size: 13px; }
+
+        /* Нижний ряд: Магазин и Профиль */
+        .row-bottom { display: flex; gap: 16px; width: 100%; }
+        .btn-shop, .btn-profile {
+            cursor: pointer;
+            flex: 1;
+            text-align: left;
+        }
+        .btn-shop .icon-shop, .btn-profile .icon-profile { font-size: 20px; color: #888; }
+        .btn-shop h2, .btn-profile h2 { margin: 8px 0 0; font-size: 16px; }
+        .btn-shop p, .btn-profile p { margin: 4px 0 0; color: #aaa; font-size: 12px; }
+
+        /* Кнопка таблицы лидеров */
+        .btn-leaderboard { text-align: center; color: #aaa; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="greeting-card card">
+        <p>Привет, Чемпион!</p>
+        <h1>Время<br>побеждать.</h1>
+        <div class="status-row">
+            <div class="status-item">🏆 <span>1</span></div>
+            <div class="status-item">· 0 поражений</div>
+            <div class="status-item">· 💰 <span>500</span></div>
+        </div>
+    </div>
+
+    <div class="btn-main" onclick="send('play_bot')">
+        <span class="icon-bot">🤖</span>
+        <h2>Играть с ботом</h2>
+        <p>Тренировка против AI</p>
+    </div>
+
+    <div class="btn-main" onclick="send('play_friend')">
+        <span class="icon-friend">👥</span>
+        <h2>Играть с другом</h2>
+        <p>Ставка · Победитель забирает банк</p>
+    </div>
+
+    <div class="row-bottom">
+        <div class="btn-shop" onclick="send('shop')">
+            <span class="icon-shop">🛍️</span>
+            <h2>Магазин</h2>
+            <p>Монеты и скины</p>
+        </div>
+        <div class="btn-profile" onclick="send('profile')">
+            <span class="icon-profile">👤</span>
+            <h2>Профиль</h2>
+            <p>Твоя статистика</p>
+        </div>
+    </div>
+
+    <div class="btn-leaderboard card" onclick="send('leaderboard')">
+        👑 Таблица
+    </div>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+        function send(action) {
+            tg.sendData(action);
+        }
+    </script>
+</body>
+</html>
